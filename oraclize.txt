@@ -1,0 +1,11 @@
+    string public result;
+    bytes32 public oraclizeID;
+    
+    function flipCoin() payable { //Triggers the oracle service to flip a coin
+        oraclizeID = oraclize_query("WolframAlpha", "flip a coin");
+    }
+    
+    function __callback(bytes32 _oraclizeID, string _result) {
+        if(msg.sender != oraclize_cbAddress()) throw;
+        result = _result;
+    }

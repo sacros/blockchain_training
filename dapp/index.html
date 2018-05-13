@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>myDapp</title>
+        <script src="web3.min.js"></script>
+        <script>
+            var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
+            var contract = web3.eth.contract([ { "constant": false, "inputs": [ { "name": "name", "type": "bytes" }, { "name": "age", "type": "uint256" }, { "name": "is_admin", "type": "bool" } ], "name": "addPersonInfo", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "constant": true, "inputs": [ { "name": "addr", "type": "address" } ], "name": "getPersonInfo", "outputs": [ { "name": "", "type": "bytes" }, { "name": "", "type": "uint256" }, { "name": "", "type": "bool" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [ { "name": "", "type": "address" } ], "name": "personInfo", "outputs": [ { "name": "name", "type": "bytes" }, { "name": "age", "type": "uint256" }, { "name": "is_admin", "type": "bool" } ], "payable": false, "stateMutability": "view", "type": "function" } ]).at('0x6c8503705b4861433813b49b00f8cda5dc960cab');
+
+            function getPersonInfo(){
+                var getData = contract.getPersonInfo('0x26e3053512207954990e139be012838950dc89ef');
+                document.getElementById("personInfo").innerText = getData;
+            }
+            function addPersonInfo(){
+
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Test Dapp</h1>
+        <button onclick="addPersonInfo()">Add info</button>
+        <button onclick="getPersonInfo()">Get info</button>
+        <span id="personInfo"></span>
+    </body>
+</html>
